@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    
+    <section id="header">
+        <a href=""><img class="logo" src="{% static 'images/logo.png' %}"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href=""><i class="fa fa-home"></i></a></li>
+                <li id="dropdown"><a href="">Trips<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Maasai Mara Crossing</a>
+                        <a href="">Trip to Namanga Border</a>
+                        <a href="">Flight across the Indian Ocean</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href="">Destinations<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href="">Hotels & Accomodations<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href=""><i class="fa fa-user"></i>
+                    <i class="fa fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="">Login</a>
+                            <a href="">Register</a>
+                        </div></a>
+                    </a>
+                </li>
+                <li><a href="">Contacts</a></li>
+                <a href="" id="close"><i class="fa fa-times"></i></a>
+            </ul>
+        </div>
+
+        <div id="mobile">
+            <i id="bar" class="fa fa-outdent"></i>
+        </div>
+
+    </section>
+    
+    <section id="message">
+        {% for message in messages %}
+        <p>{{message}}</p>
+        <a href=""><i class="fa fa-times-circle"></i></a>
+        {% endfor %}
+    </section>
+
+    <section id="page-header">
+        <h2>#Know Us..</h2>
+        <p>Get more information about us</p>
+    </section>
+
+    <section id="contact">
+        <div class="details">
+            <h2>Visit one of our agencies or contact us today to get some of our</h2>
+            <h3>Head Office</h3>
+            <div>
+                <li>
+                    <i class="fa fa-map-marker"></i>
+                    <p>123 Nairobi, Givanjee-Kenya</p>
+                </li>
+                <li>
+                    <i class="fa fa-envelope-o"></i>
+                    <p>victoranzeze50@gmail.com</p>
+                </li>
+                <li>
+                    <i class="fa fa-phone"></i>
+                    <p>+254 7 123 456 767, +255 7 134 456 78</p>
+                </li>
+                <li>
+                    <i class="fa fa-clock-o"></i>
+                    <p>Monday-Saturday, 9:00-16:00</p>
+                </li>
+            </div>
+        </div>
+
+        <div class="people">
+            <div>
+                <img src="{% static 'images/person1.jpg!d' %}">
+                <p><span>John Djoe</span>Senior Maketing Director <br> Phone: + 254 123 456 711
+                <br> Email: contact@gmail.com</p>
+            </div>
+
+            <div>
+                <img src="{% static 'images/person1.jpg!d' %}">
+                <p><span>John Djoe</span>Senior Maketing Director <br> Phone: + 254 123 456 711
+                <br> Email: contact@gmail.com</p>
+            </div>
+
+            <div>
+                <img src="{% static 'images/person1.jpg!d' %}">
+                <p><span>John Djoe</span>Senior Maketing Director <br> Phone: + 254 123 456 711
+                <br> Email: contact@gmail.com</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="form-details" class="section-p1">
+        <form action="" method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <span>LEAVE A REVIEW & RATE US!!</span>
+            <h2>We love to hear from you</h2>
+            <input type="text" placeholder="Your name" name="name">
+            <input type="text" placeholder="E-mail" name="email">
+
+            <label>Choose a Photo: </label>
+            <input type="file" name="profile_photo">
+
+            <textarea name="review" id="" cols="30" rows="10" placeholder="Your Reviews"></textarea>
+            <span>YOUR RATINGS</span>
+            <div class="rate">
+                <input type="radio" name="rating" id="rating5" value="5" required><label for="rating5" title="5"></label>
+                <input type="radio" name="rating" id="rating4" value="4" required><label for="rating4" title="4"></label>
+                <input type="radio" name="rating" id="rating3" value="3" required><label for="rating3" title="3"></label>
+                <input type="radio" name="rating" id="rating2" value="2" required><label for="rating2" title="2"></label>
+                <input type="radio" name="rating" id="rating1" value="1" required><label for="rating1" title="1"></label>
+            </div>
+            {% if user.is_authenticated %}
+            <button class="normal" type="submit">Submit</button>
+            {% else %}
+            <h3>Log in <a href="{% url 'login' %}">here</a> to add your review</h3>
+            {% endif %}
+        </form>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="{% static 'images/logo.png' %}">
+            <h4>Contacts</h4>
+            <p><strong>Address: </strong>Vihiga,Chavakali</p>
+            <p><strong>Phone: </strong>+254 7 12 345 657/+254 7 12 345 657</p>
+            <p><strong>Email: </strong>furahasafaris@gmail.com</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fa fa-facebook"></i>
+                    <i class="fa fa-instagram"></i>
+                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-linkedin"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Enquiries</a>
+            <a href="#">Our drivers & vehicles</a>
+            <a href="#">Travelers reviews</a>
+        </div>
+
+        <div class="col">
+            <h4>KENYA</h4>
+            <a href="#">Amboseli </a>
+            <a href="#">Lake Nakuru</a>
+            <a href="#">Maasai mara</a>
+            <a href="#">Samburu</a>
+            <a href="#">Tsavo east & Tsavo west</a>
+        </div>
+
+        <div class="col">
+            <h4>UGANDA</h4>
+            <a href="#">Kampala Resort </a>
+            <a href="#">Lake Victoria</a>
+            <a href="#">The seven folks</a>
+            <a href="#">Mbale National Park</a>
+        </div>
+
+        <div class="col">
+            <h4>TANZANIA</h4>
+            <a href="#">Serengeti </a>
+            <a href="#">Tarangire</a>
+            <a href="#">Ngorongoro</a>
+            <a href="#">Lake Manyara</a>
+            <a href="#">Zanzibar</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App store or Google Play</p>
+            <div class="row">
+                <img src="{% static 'images/googleplay.png' %}">
+                <img src="{% static 'images/gooleapp.png' %}">
+            </div>
+            <p>Secure Payment Gateways</p>
+            <img class="payment" src="{% static 'images/gateway.JPG' %}">
+        </div>
+
+        <div class="copyright">
+            <p>© 2024. Vickeey etc - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+    <script>
+        const bar = document.getElementById('bar')
+        const nav = document.getElementById('navbar')
+        const close = document.getElementById('close')
+
+        if (bar){
+            bar.addEventListener('click', () => {
+                nav.classList.add('active');
+            })
+        }
+
+        if (close){
+            close.addEventListener('click', () => {
+                nav.classList.remove('active');
+            })
+        }
+    </script>
+
+</body>
+{% endblock content %}

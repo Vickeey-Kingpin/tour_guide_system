@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    
+    <section id="header">
+        <a href=""><img class="logo" src="{% static 'images/logo.png' %}"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href=""><i class="fa fa-home"></i></a></li>
+                <li id="dropdown"><a href="">Trips<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href="">Destinations<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href="">Hotels & Accomodations<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href=""><i class="fa fa-user"></i>
+                    <i class="fa fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="">Login</a>
+                            <a href="">Register</a>
+                        </div></a>
+                    </a>
+                </li>
+                <li><a href="">Contacts</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="message">
+        {% for message in messages %}
+        <p>{{message}}</p>
+        <a href=""><i class="fa fa-times-circle"></i></a>
+        {% endfor %}
+    </section>
+
+    <section id="hotels" class="section-p1">
+        <div class="container">
+            <div class="content">
+                <h3>{{object.name}}</h3>
+                <img src="{{object.hotel_photo.url}}">
+                <P>{{object.description}}</P>
+                <span><strong style="color: red;">Ksh {{object.get_price}}</strong> for Adults | 
+                <strong style="color: red;">Ksh {{object.get_children_total}}</strong> for children per 24 hours </span><br>
+            </div>
+            
+            <div class="booking">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h4>Enquire</h4>
+                    <div class="row">
+                        <div class="col-25"><label>Full Name:</label></div>
+                        <div class="col-75"><input type="text" name="full_name"></div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-25"><label>Email:</label></div>
+                        <div class="col-75"><input type="email" name="email"></div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-25"><label>Period(Days):</label></div>
+                        <div class="col-75"><input type="number" value="1" name="period"></div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-25"><label>Adult:</label></div>
+                        <div class="col-75"><input type="number" value="1" name="adult"></div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-25"><label>Children:</label></div>
+                        <div class="col-75"><input type="number" value="0" name="children"></div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-25"><label>Date:</label></div>
+                        <div class="col-75"><input type="date" name="date"></div>
+                    </div>
+        
+                    <div class="payment-options">
+                        <h4>Payment Options</h4>
+                        {% for value,name in form.fields.payment_options.choices %}
+                        <div>
+                            <input type="radio" value="{{value}}" name="payment_options">
+                            <label>{{name}}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <button class="normal" type="submit">Proceed to Payment</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="{% static 'images/logo.png' %}">
+            <h4>Contacts</h4>
+            <p><strong>Address: </strong>Vihiga,Chavakali</p>
+            <p><strong>Phone: </strong>+254 7 12 345 657/+254 7 12 345 657</p>
+            <p><strong>Email: </strong>furahasafaris@gmail.com</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fa fa-facebook"></i>
+                    <i class="fa fa-instagram"></i>
+                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-linkedin"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Enquiries</a>
+            <a href="#">Our drivers & vehicles</a>
+            <a href="#">Travelers reviews</a>
+        </div>
+
+        <div class="col">
+            <h4>KENYA</h4>
+            <a href="#">Amboseli </a>
+            <a href="#">Lake Nakuru</a>
+            <a href="#">Maasai mara</a>
+            <a href="#">Samburu</a>
+            <a href="#">Tsavo east & Tsavo west</a>
+        </div>
+
+        <div class="col">
+            <h4>UGANDA</h4>
+            <a href="#">Kampala Resort </a>
+            <a href="#">Lake Victoria</a>
+            <a href="#">The seven folks</a>
+            <a href="#">Mbale National Park</a>
+        </div>
+
+        <div class="col">
+            <h4>TANZANIA</h4>
+            <a href="#">Serengeti </a>
+            <a href="#">Tarangire</a>
+            <a href="#">Ngorongoro</a>
+            <a href="#">Lake Manyara</a>
+            <a href="#">Zanzibar</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App store or Google Play</p>
+            <div class="row">
+                <img src="{% static 'images/googleplay.png' %}">
+                <img src="{% static 'images/gooleapp.png' %}">
+            </div>
+            <p>Secure Payment Gateways</p>
+            <img class="payment" src="{% static 'images/gateway.JPG' %}">
+        </div>
+
+        <div class="copyright">
+            <p>© 2024. Vickeey etc - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+</body>
+{% endblock content %}

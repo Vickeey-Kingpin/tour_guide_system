@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    
+    <section id="header">
+        <a href=""><img class="logo" src="{% static 'images/logo.png' %}"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href=""><i class="fa fa-home"></i></a></li>
+                <li id="dropdown"><a href="">Trips<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href="">Destinations<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href="">Hotels & Accomodations<i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="">Voi</a>
+                        <a href="">Voi</a>
+                        <a href="">Mombasa beac of coastal mombasa</a>
+                    </div></a>
+                </li>
+                <li id="dropdown"><a href=""><i class="fa fa-user"></i>
+                    <i class="fa fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="">Login</a>
+                            <a href="">Register</a>
+                        </div></a>
+                    </a>
+                </li>
+                <li><a href="">Contacts</a></li>
+                <a href="" id="close"><i class="fa fa-times"></i></a>
+            </ul>
+        </div>
+
+        <div id="mobile">
+            <i id="bar" class="fa fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="message">
+        {% for message in messages %}
+        <p>{{message}}</p>
+        <a href=""><i class="fa fa-times-circle"></i></a>
+        {% endfor %}
+    </section>
+
+    <section id="container">
+        <div class="wrapper">
+            <div class="content">
+                <h2> <i class="fa fa-plane"></i> Travel World</h2>
+                <h3>Welcome Again!!</h3>
+                <p>The About Us page of your website is an essential source of 
+                information for anyone who wants to know more about your business.gnsndf
+                It is where you showcase your history, the unique value of your </p>
+                <div class="content-icon">
+                    <i class="fa fa-facebook"></i>
+                    <i class="fa fa-instagram"></i>
+                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-linkedin"></i>
+                </div>
+            </div>
+            <div class="log-reg">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h2>Sign in</h2>
+                    <div>
+                        <label>Email:</label>
+                        <input type="email" placeholder="Enter Your Email" name="email">
+                    </div>
+    
+                    <div>
+                        <label>Password:</label>
+                        <input type="password" placeholder="Set your Password" name="password">
+                    </div>
+    
+                    <button type="submit">Login</button>
+                    <div class="forg">
+                        <a href=""><p>Forgot password?</p></a>
+                        <p>Don't have an account? <a href="">Register</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-content">
+            <h2>ABOUT FURAHA SAFARIS</h2>
+            <P>For most nature and adventure lovers an East African safari such 
+            as private safaris tours in Kenya & Tanzania is a significant investment
+            and proves to be “Trip of a Lifetime” as well as for some other travelers
+            it becomes a wonderful obsession to return again and again. Planning 
+            the ultimate and safe Kenya and Tanzania safari tours can be a daunting 
+            task with infinite choices to make and amazing brochures that will make
+            every choice sound perfect.</P>
+
+            <button class="normal">Explore more &rarr;</button>
+        </div>
+        <div class="col-2">
+            <h2>THE BIG FIVE</h2>
+            <div class="about-pics">
+                <img src="{% static 'images/lion1.png' %}">
+                <img src="{% static 'images/leopard.jpg' %}">
+                <img src="{% static 'images/rhino.jpg' %}">
+                <img src="{% static 'images/elephant.jpg' %}">
+                <img src="{% static 'images/buffalo.avif' %}">
+            </div>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="{% static 'images/logo.png' %}">
+            <h4>Contacts</h4>
+            <p><strong>Address: </strong>Vihiga,Chavakali</p>
+            <p><strong>Phone: </strong>+254 7 12 345 657/+254 7 12 345 657</p>
+            <p><strong>Email: </strong>furahasafaris@gmail.com</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fa fa-facebook"></i>
+                    <i class="fa fa-instagram"></i>
+                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-linkedin"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Enquiries</a>
+            <a href="#">Our drivers & vehicles</a>
+            <a href="#">Travelers reviews</a>
+        </div>
+
+        <div class="col">
+            <h4>KENYA</h4>
+            <a href="#">Amboseli </a>
+            <a href="#">Lake Nakuru</a>
+            <a href="#">Maasai mara</a>
+            <a href="#">Samburu</a>
+            <a href="#">Tsavo east & Tsavo west</a>
+        </div>
+
+        <div class="col">
+            <h4>UGANDA</h4>
+            <a href="#">Kampala Resort </a>
+            <a href="#">Lake Victoria</a>
+            <a href="#">The seven folks</a>
+            <a href="#">Mbale National Park</a>
+        </div>
+
+        <div class="col">
+            <h4>TANZANIA</h4>
+            <a href="#">Serengeti </a>
+            <a href="#">Tarangire</a>
+            <a href="#">Ngorongoro</a>
+            <a href="#">Lake Manyara</a>
+            <a href="#">Zanzibar</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App store or Google Play</p>
+            <div class="row">
+                <img src="{% static 'images/googleplay.png' %}">
+                <img src="{% static 'images/gooleapp.png' %}">
+            </div>
+            <p>Secure Payment Gateways</p>
+            <img class="payment" src="{% static 'images/gateway.JPG' %}">
+        </div>
+
+        <div class="copyright">
+            <p>© 2024. Vickeey etc - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+    <script>
+        const bar = document.getElementById('bar')
+        const nav = document.getElementById('navbar')
+        const close = document.getElementById('close')
+
+        if (bar){
+            bar.addEventListener('click', () => {
+                nav.classList.add('active');
+            })
+        }
+
+        if (close){
+            close.addEventListener('click', () => {
+                nav.classList.remove('active');
+            })
+        }
+    </script>
+</body>
+{% endblock content %}

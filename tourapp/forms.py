@@ -33,3 +33,6 @@ class HotelBookingForm(forms.Form):
     children = forms.IntegerField(required=False)
     date = forms.DateField(required=False)
     payment_options = forms.ChoiceField(widget=forms.RadioSelect,choices=PAYMENT_OPTIONS)
+
+class TripMpesaForm(forms.Form):
+    mpesa_number = forms.CharField()

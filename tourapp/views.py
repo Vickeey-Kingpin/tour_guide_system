@@ -5,9 +5,11 @@ from . models import *
 from django.views.generic import View,ListView,DetailView
 from . forms import *
 from django.core.exceptions import ObjectDoesNotExist
-import folium
+import folium,uuid
 from folium.features import CustomIcon
 from django_daraja.mpesa.core import MpesaClient
+from django.conf import settings
+from paypal.standard.forms import PayPalPaymentsForm
 
 # Create your views here.
 def form_validity(values):
@@ -165,7 +167,47 @@ class TripMpesaView(View):
         context = {
             'trip_bookings':trip_bookings,
         }  
-        return render(self.request,'tripmpesa.html',context)      
+        return render(self.request,'tripmpesa.html',context)  
+
+    def post(self,*args,**kwargs):
+        form = TripMpesaForm(self.request.POST or None)
+        try:
+            trip_bookings = TripBooking.objects.get(user=self.request.user)
+
+            if form.is_valid():
+                mpesa_number = form.cleaned_data['mpesa_number']
+
+                if len(mpesa_number) == 10:
+                    cl = MpesaClient()
+                    phone_number = mpesa_number
+                    amount = trip_bookings.get_all_total()
+                    account_reference = 'reference'
+                    transaction_desc = 'Description'
+                    callback_url = 'https://mydomain.com/path'
+                    cl.stk_push(phone_number,amount,account_reference,transaction_desc,callback_url)
+                else:
+                    messages.error(self.request, 'Phone number must have 10 digits')
+                    return redirect('tripmpesa')
+
+                payment = Payment(
+                    user = self.request.user,
+                    booked_for = trip_bookings.trip.title,
+                    payment_option = 'Mpesa',
+                    amount_paid = amount,
+                    payment_number = phone_number
+                )
+                payment.save()
+
+                messages.info(self.request, 'Prompt send to your phone, enter PIN to complete')
+                return redirect('tripmpesa') 
+            
+            else:    
+                print(form.errors)
+                messages.warning(self.request, 'Field cannot be empty.')
+                return redirect('tripmpesa') 
+        except ObjectDoesNotExist:
+            messages.info(self.request, 'Trip does not exist')
+            return redirect('tripmpesa')  
 
 class HotelMpesaView(View):
     def get(self,*args,**kwargs):
@@ -175,13 +217,75 @@ class HotelMpesaView(View):
         }  
         return render(self.request,'hotelmpesa.html',context) 
 
+    def post(self,*args,**kwargs):
+        form = TripMpesaForm(self.request.POST or None)
+        try:
+            hotel_bookings = HotelBooking.objects.get(user=self.request.user)
+
+            if form.is_valid():
+                mpesa_number = form.cleaned_data['mpesa_number']
+
+                if len(mpesa_number) == 10:
+                    cl = MpesaClient()
+                    phone_number = mpesa_number
+                    amount = hotel_bookings.get_total_price()
+                    account_reference = 'reference'
+                    transaction_desc = 'Description'
+                    callback_url = 'https://mydomain.com/path'
+                    cl.stk_push(phone_number,amount,account_reference,transaction_desc,callback_url)
+                else:
+                    messages.error(self.request, 'Phone number must have 10 digits')
+                    return redirect('hotelmpesa')
+
+                payment = Payment(
+                    user = self.request.user,
+                    booked_for = hotel_bookings.hotel.name,
+                    payment_option = 'Mpesa',
+                    amount_paid = amount,
+                    payment_number = phone_number
+                )
+                payment.save()
+
+                messages.info(self.request, 'Prompt send to your phone, enter PIN to complete')
+                return redirect('hotelmpesa') 
+            
+            else:    
+                print(form.errors)
+                messages.warning(self.request, 'Field cannot be empty.')
+                return redirect('hotelmpesa') 
+        except ObjectDoesNotExist:
+            messages.info(self.request, 'Trip does not exist')
+            return redirect('hotelpmpesa')  
+
 class TripPaypalView(View):
     def get(self,*args,**kwargs):
         trip_bookings = TripBooking.objects.get(user=self.request.user)
+
+        paypal_dict = {
+            'business': settings.PAYPAL_RECEIVER_EMAIL,
+            'amount' : trip_bookings.get_paypal_all_total(),
+            'item_name' : 'Trip Booking Paypal',
+            'invoice' : uuid.uuid4(),
+            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
+            "return": self.request.build_absolute_uri(reverse('home')),
+            "cancel_return": self.request.build_absolute_uri(reverse('home')),            
+        }
+        form = PayPalPaymentsForm(initial=paypal_dict)
+
         context = {
             'trip_bookings':trip_bookings,
+            'form':form,
         }  
-        return render(self.request,'trippaypal.html',context) 
+        
+        payment = Payment(
+            user = self.request.user,
+            booked_for = trip_bookings.trip.title,
+            payment_option = 'Paypal',
+            amount_paid = paypal_dict['amount'],
+            payment_number= paypal_dict['invoice']
+        )
+        payment.save()
+        return render(self.request,'trippaypal.html',context)   
     
 class HotelPaypalView(View):
     def get(self,*args,**kwargs):
@@ -190,9 +294,6 @@ class HotelPaypalView(View):
             'hotel_bookings':hotel_bookings
         }  
         return render(self.request,'hotelpaypal.html',context) 
-
-def paypal(request):
-    return render(request,'paypal.html')   
 
 class DestinationView(View):
     def get(self,*args,**kwargs):
@@ -305,13 +406,4 @@ class HotelDetailView(DetailView):
             messages.warning(self.request, 'Invalid form.')
             return redirect('hoteldetails',pk=kwargs['pk'])
 
-
-# def index(request):
-#     cl = MpesaClient()
-#     phone_number = '0700111222'
-#     amount = 1
-#     account_reference = 'reference'
-#     transaction_desc = 'Description'
-#     callback_url = 'https://api.darajambili.com/express-payment'
-#     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-#     return HttpResponse(response)        
+   

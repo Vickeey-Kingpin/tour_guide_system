@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'tourapp',
     'django_countries',
     'django_daraja',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [

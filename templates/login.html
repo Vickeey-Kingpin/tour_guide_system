@@ -4,41 +4,41 @@
 <body>
     
     <section id="header">
-        <a href=""><img class="logo" src="{% static 'images/logo.png' %}"></a>
+        <a href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo.png' %}"></a>
 
         <div>
             <ul id="navbar">
-                <li><a href=""><i class="fa fa-home"></i></a></li>
-                <li id="dropdown"><a href="">Trips<i class="fa fa-chevron-down"></i>
+                <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
+                <!-- <li id="dropdown"><a href="">Trips
                     <div class="dropdown-menu">
-                        <a href="">Voi</a>
-                        <a href="">Voi</a>
-                        <a href="">Mombasa beac of coastal mombasa</a>
+                        <a href="">Maasai Mara Crossing</a>
+                        <a href="">Trip to Namanga Border</a>
+                        <a href="">Flight across the Indian Ocean</a>
                     </div></a>
-                </li>
-                <li id="dropdown"><a href="">Destinations<i class="fa fa-chevron-down"></i>
-                    <div class="dropdown-menu">
-                        <a href="">Voi</a>
-                        <a href="">Voi</a>
-                        <a href="">Mombasa beac of coastal mombasa</a>
-                    </div></a>
-                </li>
-                <li id="dropdown"><a href="">Hotels & Accomodations<i class="fa fa-chevron-down"></i>
-                    <div class="dropdown-menu">
-                        <a href="">Voi</a>
-                        <a href="">Voi</a>
-                        <a href="">Mombasa beac of coastal mombasa</a>
-                    </div></a>
-                </li>
+                </li> -->
+                <li id="dropdown"><a href="{% url 'destinations' %}">Destinations</a> </li>
+                <li id="dropdown"><a href="{% url 'hotel' %}">Hotels & Accomodations</a></li>
+
+                {% if user.is_authenticated %}
                 <li id="dropdown"><a href=""><i class="fa fa-user"></i>
+                    <span>Hi, {{user.get_full_name}}</span>
                     <i class="fa fa-chevron-down"></i>
                         <div class="dropdown-menu">
-                            <a href="">Login</a>
-                            <a href="">Register</a>
+                            <a href="{% url 'logout' %}">Logout</a>
                         </div></a>
                     </a>
                 </li>
-                <li><a href="">Contacts</a></li>
+                {% else %}
+                <li id="dropdown"><a href=""><i class="fa fa-user"></i>
+                    <i class="fa fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="{% url 'login' %}">Login</a>
+                            <a href="{% url 'register' %}">Register</a>
+                        </div></a>
+                    </a>
+                </li>
+                {% endif %}
+                <li><a href="{% url 'contact' %}">Contacts & Ratings</a></li>
                 <a href="" id="close"><i class="fa fa-times"></i></a>
             </ul>
         </div>
@@ -46,6 +46,7 @@
         <div id="mobile">
             <i id="bar" class="fa fa-outdent"></i>
         </div>
+
     </section>
 
     <section id="message">
@@ -87,7 +88,7 @@
                     <button type="submit">Login</button>
                     <div class="forg">
                         <a href=""><p>Forgot password?</p></a>
-                        <p>Don't have an account? <a href="">Register</a></p>
+                        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
                     </div>
                 </form>
             </div>

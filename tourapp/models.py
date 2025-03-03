@@ -20,7 +20,7 @@ class Review(models.Model):
     email = models.EmailField()
     review = models.CharField(max_length=500)
     rating = models.IntegerField()
-    profile_photo = models.ImageField(upload_to='images/',default='images/giraffe.jpg')
+    profile_photo = models.ImageField(upload_to='images/',default='images/user.png')
     reviewed_date = models.DateTimeField(auto_now=True)    
 
 class Trip(models.Model):
@@ -36,6 +36,9 @@ class Trip(models.Model):
     transport = models.FloatField(default=0)	 
     meals = models.FloatField(default=0)		
     others = models.FloatField(default=0)	
+
+    def __str__(self):
+        return self.title
 
     def get_absolute_url(self):
         return reverse('trip', kwargs={'pk':self.pk})
@@ -56,7 +59,6 @@ class TripBooking(models.Model):
     adult = models.IntegerField()
     children= models.IntegerField()
     date = models.DateField(default=timezone.now)
-    # booked = models.BooleanField(default=False)
 
     # def get_booking_adult_totals(self):
     #     return round(int(self.trip.get_trip_total_amount())*int(self.adult))
@@ -79,7 +81,11 @@ class TripBooking(models.Model):
 
 class Payment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    booked_for = models.CharField(max_length=100)
     payment_option = models.CharField(max_length=10,choices=PAYMENT_OPTIONS)
+    amount_paid = models.FloatField(default=0)
+    paid = models.BooleanField(default=False)
+    payment_number = models.CharField(max_length=10)
 
 class Destination(models.Model):
     title = models.CharField(max_length=200)
@@ -139,3 +145,4 @@ class HotelBooking(models.Model):
     def get_paypal_total_price(self):
         total = int(self.get_total_price())/135
         return round(total)
+

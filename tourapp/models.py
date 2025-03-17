@@ -14,6 +14,15 @@ SITES_OPTIONS = (
     ('Airport','A')
 )
 
+class Staff(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    position = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15)
+    is_staff = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='images/',default='images/user.png')
+
 class Review(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=100)

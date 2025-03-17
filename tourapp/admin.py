@@ -25,4 +25,5 @@ admin.site.register(Payment,PaymentAdmin)
 admin.site.register(Destination)
 admin.site.register(Hotel)
 admin.site.register(HotelBooking)
+admin.site.register(Staff)
 

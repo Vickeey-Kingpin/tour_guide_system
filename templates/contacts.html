@@ -87,21 +87,12 @@
 
         <div class="people">
             <div>
-                <img src="{% static 'images/person1.jpg!d' %}">
-                <p><span>John Djoe</span>Senior Maketing Director <br> Phone: + 254 123 456 711
-                <br> Email: contact@gmail.com</p>
-            </div>
-
-            <div>
-                <img src="{% static 'images/person1.jpg!d' %}">
-                <p><span>John Djoe</span>Senior Maketing Director <br> Phone: + 254 123 456 711
-                <br> Email: contact@gmail.com</p>
-            </div>
-
-            <div>
-                <img src="{% static 'images/person1.jpg!d' %}">
-                <p><span>John Djoe</span>Senior Maketing Director <br> Phone: + 254 123 456 711
-                <br> Email: contact@gmail.com</p>
+                {% for person in people %}
+                <img src="{{person.image.url}}">
+                <p style="text-transform: capitalize;"><span>{{person.first_name}} {{person.last_name}}</span><br>
+                Senior Maketing Director <br> Phone: + {{person.phone_number}}
+                <br> Email: {{person.email}}</p>
+                {% endfor %}
             </div>
         </div>
     </section>

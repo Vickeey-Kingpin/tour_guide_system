@@ -110,7 +110,11 @@
                         {% endfor %}
                     </div>
 
+                    {% if user.is_authenticated %}
                     <button class="normal" type="submit">Proceed to Payment</button>
+                    {% else %}
+                    <h3>Log in <a href="{% url 'login' %}">here</a> to proceed to payment</h3>
+                    {% endif %}
                 </form>
             </div>
         </div>

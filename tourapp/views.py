@@ -83,8 +83,10 @@ def logout(request):
 class ContactView(View):
     def get(self,*args,**kwargs):
         form = ReviewForm()
+        people = Staff.objects.all()[:3]
         context ={
-            'form':form
+            'form':form,
+            'people':people
         }
         return render(self.request,'contacts.html',context)
     

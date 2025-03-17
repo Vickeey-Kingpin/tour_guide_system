@@ -11,6 +11,7 @@ class ReviewForm(forms.Form):
     review = forms.CharField()
     rating = forms.IntegerField()
     profile_photo = forms.ImageField(
+        required=True,
         label='Profile photo',
         widget=forms.ClearableFileInput(attrs={
             'class':'image'

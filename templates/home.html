@@ -9,15 +9,23 @@
         <div>
             <ul id="navbar">
                 <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
-                <!-- <li id="dropdown"><a href="">Trips
+                <li id="dropdown"><a href="">Trips
+                    <i class="fa fa-chevron-down"></i>
                     <div class="dropdown-menu">
-                        <a href="">Maasai Mara Crossing</a>
-                        <a href="">Trip to Namanga Border</a>
-                        <a href="">Flight across the Indian Ocean</a>
+                            {% for trip in trips %}
+                            <a href="{{trip.get_absolute_url}}">{{trip.title|truncatewords:3}}</a>
+                            {% endfor %}
                     </div></a>
-                </li> -->
+                </li>
                 <li id="dropdown"><a href="{% url 'destinations' %}">Destinations</a> </li>
-                <li id="dropdown"><a href="{% url 'hotel' %}">Hotels & Accomodations</a></li>
+                <li id="dropdown"><a href="{% url 'hotel' %}">Hotels
+                    <i class="fa fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                            {% for hotel in hotels %}
+                            <a href="{{hotel.get_absolute_url}}">{{hotel.name|truncatewords:3}}</a>
+                            {% endfor %}
+                    </div></a>
+                </li>
 
                 {% if user.is_authenticated %}
                 <li id="dropdown"><a href=""><i class="fa fa-user"></i>
@@ -61,7 +69,7 @@
         <div class="theslider fade">
             <div class="slider-no">{{forloop.counter}}/{{destinations_count}}</div>
             <img src="{{destination.image.url}}">
-            <div class="slider-text">{{destination.title}}</div>
+            <div class="slider-text" style="color: red; font-weight: 600;">{{destination.title}}</div>
         </div>
         {% endfor %}
 

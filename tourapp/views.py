@@ -23,10 +23,12 @@ class HomeView(ListView):
     def get(self,*args,**kwargs):
         reviews = Review.objects.all().order_by('-reviewed_date')[:4]
         trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
         destinations = Destination.objects.all()
         destinations_count = destinations.count()
         context={
         'reviews':reviews,
+        'hotels':hotels,
         'trips':trips,
         'destinations':destinations,
         'destinations_count':destinations_count

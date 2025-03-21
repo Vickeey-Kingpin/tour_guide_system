@@ -111,6 +111,9 @@ class Hotel(models.Model):
     latitude = models.FloatField(null=True,blank=True)
     longitude = models.FloatField(null=True,blank=True)
 
+    def __str__(self):
+        return self.name
+
     def get_absolute_url(self):
         return reverse('hoteldetails', kwargs={'pk':self.pk})
 

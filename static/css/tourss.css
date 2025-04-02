@@ -24,7 +24,8 @@
     color: red;
     font-size: 25px;
 }
-button.normal{
+button.normal,
+#reset_password button{
     font-size: 14px;
     font-weight: 600;
     padding: 15px 30px;
@@ -770,7 +771,8 @@ footer .copyright{
 input:checked ~ label, label:hover ~ label{
     color: #ff3503;
 }
-#form-details form button{
+#form-details form button,
+#reset_password button{
     color: #fff;
     background: #088178;
     margin-top: 10px;
@@ -986,3 +988,53 @@ input:checked ~ label, label:hover ~ label{
 
     }
 }
+
+#reset_password{
+    width: 50%;
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+}
+#reset_password h1{
+    font-family: cursive;
+    text-align: center;
+    margin-bottom: 0;
+}
+#reset_password p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #465b52;
+}
+#reset_password input{
+    padding: 12px 0 12px 12px;
+    width: 98%;
+    border-radius: 4px;
+    border: 2px solid #cfcfcf;
+    outline: none;
+}
+#reset_password a{
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 10px;
+    color: #c5aa6a;
+}
+#reset_password a:hover{
+    text-decoration: underline;
+}
+.complete{
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin-top: 0;
+}
+.complete h5{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.complete h5 i{
+    margin-right: 10px;
+}
+
+

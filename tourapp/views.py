@@ -51,6 +51,7 @@ def register(request):
                 else:
                     user = User.objects.create_user(username=email,email=email,first_name=firstname,last_name=lastname,password=password)
                     user.save()
+
                     messages.success(request, 'Register successifull. Log in here!!')
                     return redirect('login')
             else:

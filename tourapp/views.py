@@ -60,9 +60,21 @@ def register(request):
         else:
             messages.warning(request, 'Password missmatch')
             return redirect('register')
-    return render(request, 'register.html')
+        
+    trips = Trip.objects.all()
+    hotels = Hotel.objects.all()
+    destinations = Destination.objects.all()
+    destinations_count = destinations.count()
 
-def login(request):
+    context = {
+        'hotels':hotels,
+        'trips':trips,
+        'destinations':destinations,
+        'destinations_count':destinations_count
+    }
+    return render(request, 'register.html',context)
+
+def login(request):  
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -76,7 +88,19 @@ def login(request):
         else:
             messages.warning(request, 'Invalid Email or Password')
             return redirect('login')
-    return render(request,'login.html')
+        
+    trips = Trip.objects.all()
+    hotels = Hotel.objects.all()
+    destinations = Destination.objects.all()
+    destinations_count = destinations.count()
+
+    context = {
+        'hotels':hotels,
+        'trips':trips,
+        'destinations':destinations,
+        'destinations_count':destinations_count
+    }
+    return render(request,'login.html',context)
 
 def logout(request):
     auth.logout(request)
@@ -87,9 +111,17 @@ class ContactView(View):
     def get(self,*args,**kwargs):
         form = ReviewForm()
         people = Staff.objects.all()[:3]
+        trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
+        destinations = Destination.objects.all()
+        destinations_count = destinations.count()
         context ={
             'form':form,
-            'people':people
+            'people':people,
+            'hotels':hotels,
+            'trips':trips,
+            'destinations':destinations,
+            'destinations_count':destinations_count
         }
         return render(self.request,'contacts.html',context)
     
@@ -118,6 +150,10 @@ class TripView(DetailView):
     def get_context_data(self,*args,**kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = TripBookingForm()
+        context['hotels'] = Hotel.objects.all()
+        context['trips'] = Trip.objects.all()
+        context['destinations'] = Destination.objects.all()
+        context['destinations_count'] = Destination.objects.all().count()
         return context
      
     def post(self,*args,**kwargs):
@@ -169,8 +205,16 @@ class TripView(DetailView):
 class TripMpesaView(View):
     def get(self,*args,**kwargs):
         trip_bookings = TripBooking.objects.get(user=self.request.user)
+        trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
+        destinations = Destination.objects.all()
+        destinations_count = destinations.count()
         context = {
             'trip_bookings':trip_bookings,
+            'hotels':hotels,
+            'trips':trips,
+            'destinations':destinations,
+            'destinations_count':destinations_count
         }  
         return render(self.request,'tripmpesa.html',context)  
 
@@ -217,8 +261,16 @@ class TripMpesaView(View):
 class HotelMpesaView(View):
     def get(self,*args,**kwargs):
         hotel_bookings = HotelBooking.objects.get(user=self.request.user)
+        trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
+        destinations = Destination.objects.all()
+        destinations_count = destinations.count()
         context = {
-            'hotel_bookings':hotel_bookings
+            'hotel_bookings':hotel_bookings,
+            'hotels':hotels,
+            'trips':trips,
+            'destinations':destinations,
+            'destinations_count':destinations_count
         }  
         return render(self.request,'hotelmpesa.html',context) 
 
@@ -265,6 +317,10 @@ class HotelMpesaView(View):
 class TripPaypalView(View):
     def get(self,*args,**kwargs):
         trip_bookings = TripBooking.objects.get(user=self.request.user)
+        trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
+        destinations = Destination.objects.all()
+        destinations_count = destinations.count()
 
         paypal_dict = {
             'business': settings.PAYPAL_RECEIVER_EMAIL,
@@ -280,6 +336,10 @@ class TripPaypalView(View):
         context = {
             'trip_bookings':trip_bookings,
             'form':form,
+            'hotels':hotels,
+            'trips':trips,
+            'destinations':destinations,
+            'destinations_count':destinations_count
         }  
         
         payment = Payment(
@@ -295,8 +355,16 @@ class TripPaypalView(View):
 class HotelPaypalView(View):
     def get(self,*args,**kwargs):
         hotel_bookings = HotelBooking.objects.get(user=self.request.user)
+        trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
+        destinations = Destination.objects.all()
+        destinations_count = destinations.count()
         context = {
-            'hotel_bookings':hotel_bookings
+            'hotel_bookings':hotel_bookings,
+            'hotels':hotels,
+            'trips':trips,
+            'destinations':destinations,
+            'destinations_count':destinations_count
         }  
         return render(self.request,'hotelpaypal.html',context) 
 
@@ -331,8 +399,18 @@ class DestinationView(View):
         
         map_html = m._repr_html_()
 
+        trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
+        destinations = Destination.objects.all()
+        destinations_count = destinations.count()
+
         context={
             'm':map_html,
+            'hotels':hotels,
+            'trips':trips,
+            'destinations':destinations,
+            'destinations_count':destinations_count
+
         }    
 
         return render(self.request,'destination.html',context)
@@ -353,9 +431,18 @@ class HotelView(View):
 
             map_html = m._repr_html_()
 
+        trips = Trip.objects.all()
+        hotels = Hotel.objects.all()
+        destinations = Destination.objects.all()
+        destinations_count = destinations.count()
+
         context={
             'm':map_html,
-            'hotels':hotel_list
+            'hotels':hotel_list,
+            'hotels':hotels,
+            'trips':trips,
+            'destinations':destinations,
+            'destinations_count':destinations_count,
         }       
         return render(self.request,'hotels.html',context)
 
@@ -365,8 +452,12 @@ class HotelDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['hotel_bookings'] = HotelBooking.objects.get(user=self.request.user)
-        context['form'] = HotelBookingForm()
+        
+        context['form'] = TripBookingForm()
+        context['hotels'] = Hotel.objects.all()
+        context['trips'] = Trip.objects.all()
+        context['destinations'] = Destination.objects.all()
+        context['destinations_count'] = Destination.objects.all().count()
         return context
     
     def post(self,*args,**kwargs):

@@ -17,6 +17,7 @@ urlpatterns = [
     path('destinations/',DestinationView.as_view(),name='destinations'),
     path('hotels/',HotelView.as_view(),name='hotel'),
     path('hotel/<pk>/',HotelDetailView.as_view(),name='hoteldetails'),
+    path('success/',SuccessView.as_view(),name='success'),
 
     path('reset_password/',auth_views.PasswordResetView.as_view(template_name='reset_password.html'),
         name='reset_password'),

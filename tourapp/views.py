@@ -248,7 +248,7 @@ class TripMpesaView(View):
                 payment.save()
                           
                 messages.info(self.request, 'Prompt send to your phone, enter PIN to complete')
-                return redirect('tripmpesa') 
+                return redirect('success') 
             
             else:    
                 print(form.errors)
@@ -304,7 +304,7 @@ class HotelMpesaView(View):
                 payment.save()
 
                 messages.info(self.request, 'Prompt send to your phone, enter PIN to complete')
-                return redirect('hotelmpesa') 
+                return redirect('success') 
             
             else:    
                 print(form.errors)
@@ -502,4 +502,6 @@ class HotelDetailView(DetailView):
             messages.warning(self.request, 'Invalid form.')
             return redirect('hoteldetails',pk=kwargs['pk'])
 
-   
+class SuccessView(View):
+    def get(self,*args,**kwargs):
+        return render(self.request,'success.html')

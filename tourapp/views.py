@@ -246,7 +246,7 @@ class TripMpesaView(View):
                     payment_number = phone_number
                 )
                 payment.save()
-
+                          
                 messages.info(self.request, 'Prompt send to your phone, enter PIN to complete')
                 return redirect('tripmpesa') 
             
@@ -429,7 +429,7 @@ class HotelView(View):
                 tooltip='Click for more...',
                 icon=custom_icon).add_to(m)
 
-            map_html = m._repr_html_()
+        map_html = m._repr_html_()
 
         trips = Trip.objects.all()
         hotels = Hotel.objects.all()

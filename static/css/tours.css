@@ -106,7 +106,7 @@ button.normal,
 }
 #slider{
     width: 100%;
-    height: 60vh;
+    height: 70vh;
     margin-top: 10px;
     position: relative;
 }
@@ -115,7 +115,7 @@ button.normal,
 }
 #slider img{
     width: 100%;
-    height: 55vh;
+    height: 65vh;
 }
 #slider .slider-no{
     position: absolute;
@@ -173,6 +173,7 @@ button.normal,
     to {opacity: 1}
 }
 #safaris h2{
+    margin-top: 0;
     text-align: center;
     position: relative;
     font-size: 30px;

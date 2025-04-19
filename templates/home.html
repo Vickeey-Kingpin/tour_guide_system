@@ -90,7 +90,7 @@
             {% for trip in trips %}
             <div class="safari-container">
                 <a href="{{trip.get_absolute_url}}">
-                    <img src="{% static 'images/safari walk.jpg' %}">
+                    <img src="{{trip.image1.url}}">
                     <div class="text">
                         <h3>{{trip.title}}</h3>
                         <p><strong>Highlights: </strong>{{trip.overview|truncatewords:20}}</p>

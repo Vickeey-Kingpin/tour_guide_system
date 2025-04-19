@@ -98,7 +98,7 @@
                 {% for person in people %}
                 <img src="{{person.image.url}}">
                 <p style="text-transform: capitalize;"><span>{{person.first_name}} {{person.last_name}}</span><br>
-                Senior Maketing Director <br> Phone: + {{person.phone_number}}
+                {{person.position}} <br> Phone: + {{person.phone_number}}
                 <br> Email: {{person.email}}</p>
                 {% endfor %}
             </div>
